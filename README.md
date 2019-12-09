@@ -33,7 +33,7 @@ This needs several edits before going live
 - [Traefik](https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-18-04)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Docker Swarm Spawner](https://github.com/jupyterhub/dockerspawner/blob/master/examples/swarm/jupyterhub_config.py)
-
+- [Generic OAuth](https://github.com/jupyterhub/oauthenticator/issues/107)
 ----------------------
 
 # Original File: JupyterHub deployment in use at Université de Versailles
