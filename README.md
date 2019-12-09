@@ -29,6 +29,11 @@ This needs several edits before going live
 - ultimately implement docker swarm spawner for multi-server deployment
 - get rid of nginx front end and add SSL certs to traefik
 
+### References
+- [Traefik](https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-18-04)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker Swarm Spawner](https://github.com/jupyterhub/dockerspawner/blob/master/examples/swarm/jupyterhub_config.py)
+
 ----------------------
 
 # Original File: JupyterHub deployment in use at Université de Versailles
