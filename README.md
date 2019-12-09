@@ -1,4 +1,34 @@
-# JupyterHub deployment in use at Université de Versailles
+# JupyterHub at TJHSST
+
+Provides containerized JupyterHub spawning docker container JupyterLab notebooks. 
+This is a fork of the repository described below. So far the changes have benn
+
+- Upgrade to JupyterHub 1.0.0
+- Downgrade Traefik to 1.7
+- Fix Traefik backend specifications
+- Upload pewhitetj/* images to docker hub for deployment
+- Remove some libraries from jupyterlab image
+- Change Auth to Github OAuth
+- Remove SSL certs since provided by nginx
+
+### To deploy on campus
+
+- I think you just need to edit the HOST in .env then
+```{shell}
+$docker-compose build
+$docker-compose up -d
+```
+
+### Roadmap
+This needs several edits
+
+- Should oAuth against ion
+- Should match userID to system users and mount homedir
+- change jupyterLab image to something we actually use
+- ultimately implement docker swarm spawner for multi-server deployment
+- get rid of nginx front end and add SSL certs to traefik
+
+# Original File: JupyterHub deployment in use at Université de Versailles
 
 This is a [JupyterHub](https://jupyter.org/hub) deployment based on
 Docker currently in use at [Université de

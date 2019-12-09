@@ -1,23 +1,15 @@
 debug = true
 
-logLevel = "ERROR"
-defaultEntryPoints = ["https","http"]
+logLevel = "INFO"
+defaultEntryPoints = ["https"]
 
 [entryPoints]
-  [entryPoints.http]
-  address = ":80"
-    [entryPoints.http.redirect]
-    entryPoint = "https"
   [entryPoints.https]
-  address = ":443"
-    [entryPoints.https.tls]
-      [[entryPoints.https.tls.certificates]]
-      certFile = "/etc/certs/MyCertificate.crt"
-      keyFile = "/etc/certs/MyKey.key"
+  address = ":80"
 
 [docker]
 domain = "docker.local"
 watch = true
 
 [api]
-
+[accessLog]
