@@ -16,20 +16,14 @@ c.JupyterHub.admin_access = True
 c.Spawner.default_url = '/lab'
 
 ## Authenticator
-from jhub_cas_authenticator.cas_auth import CASAuthenticator
-c.JupyterHub.authenticator_class = CASAuthenticator
+## Configure authentication (delagated to GitLab)
+from oauthenticator.github import GitHubOAuthenticator
 
-# The CAS URLs to redirect (un)authenticated users to.
-c.CASAuthenticator.cas_login_url = 'https://cas.uvsq.fr/login'
-c.CASLocalAuthenticator.cas_logout_url = 'https://cas.uvsq/logout'
-
-# The CAS endpoint for validating service tickets.
-c.CASAuthenticator.cas_service_validate_url = 'https://cas.uvsq.fr/serviceValidate'
-
-# The service URL the CAS server will redirect the browser back to on successful authentication.
-c.CASAuthenticator.cas_service_url = 'https://%s/hub/login' % os.environ['HOST']
-
-c.Authenticator.admin_users = { 'lucadefe' }
+c.JupyterHub.authenticator_class = GitHubOAuthenticator
+c.Authenticator.admin_users = { 'pwhitetj' }
+c.GitHubOAuthenticator.oauth_callback_url = 'https://'+os.environ.get('HOST')+'/hub/oauth_callback'
+c.GitHubOAuthenticator.client_id = 'c657075ef2a5509bd1f1'
+c.GitHubOAuthenticator.client_secret = 'ed063f5085bc8fcd2330fd9b1a4d11a56f257122'
 
 
 ## Docker spawner

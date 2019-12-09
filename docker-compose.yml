@@ -3,7 +3,7 @@ version: '3'
 services:
   jupyterhub:
     build: jupyterhub
-    image: jupyterhub_img
+    image: pewhitetj/jupyterhub_img
     container_name: jupyterhub
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -12,7 +12,7 @@ services:
       - DOCKER_JUPYTER_CONTAINER=jupyterlab_img
       - DOCKER_NETWORK_NAME=${COMPOSE_PROJECT_NAME}_default
       - HUB_IP=jupyterhub
-      - HOST
+      - HOST=${HOST}
     labels:
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:${HOST}"
@@ -20,13 +20,13 @@ services:
 
   jupyterlab:
     build: jupyterlab
-    image: jupyterlab_img
+    image: pewhitetj/jupyterlab_img
     container_name: jupyterlab-throaway
     network_mode: none
     command: echo
 
   reverse-proxy:
-    image: traefik
+    image: traefik:1.7.17
     container_name: reverse-proxy
     ports:
       - "80:80"
