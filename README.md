@@ -1,7 +1,7 @@
 # JupyterHub at TJHSST
 
 Provides containerized JupyterHub spawning docker container JupyterLab notebooks. 
-This is a fork of the repository described below. So far the changes have benn
+This is a fork of the repository described below. So far the changes have been
 
 - Upgrade to JupyterHub 1.0.0
 - Downgrade Traefik to 1.7
@@ -15,18 +15,21 @@ This is a fork of the repository described below. So far the changes have benn
 
 - I think you just need to edit the HOST in .env then
 ```{shell}
-$docker-compose build
-$docker-compose up -d
+$ docker-compose build
+$ docker-compose up -d
 ```
+And make sure nginx/dns are set up appropriately
 
 ### Roadmap
-This needs several edits
+This needs several edits before going live
 
 - Should oAuth against ion
 - Should match userID to system users and mount homedir
 - change jupyterLab image to something we actually use
 - ultimately implement docker swarm spawner for multi-server deployment
 - get rid of nginx front end and add SSL certs to traefik
+
+----------------------
 
 # Original File: JupyterHub deployment in use at Université de Versailles
 
