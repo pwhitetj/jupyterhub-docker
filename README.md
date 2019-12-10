@@ -24,9 +24,9 @@ And make sure nginx/dns are set up appropriately
 ### Roadmap
 This needs several edits before going live
 
-- Should oAuth against ion
+- Should oAuth against ion (DONE)
 - Should match userID to system users and mount homedir
-- change jupyterLab image to something we actually use
+- change jupyterLab image to something we actually use (MADE SKINNIER)
 - ultimately implement docker swarm spawner for multi-server deployment
 - get rid of nginx front end and add SSL certs to traefik
 
