@@ -10,7 +10,6 @@
 ##
 
 import os
-import o_secrets
 
 ## Generic
 c.JupyterHub.admin_access = True
@@ -23,10 +22,9 @@ from oauthenticator.github import GitHubOAuthenticator
 c.JupyterHub.authenticator_class = GitHubOAuthenticator
 c.Authenticator.admin_users = { 'pwhitetj' }
 c.GitHubOAuthenticator.oauth_callback_url = 'https://'+os.environ.get('HOST')+'/hub/oauth_callback'
-c.GitHubOAuthenticator.client_id = 'c657075ef2a5509bd1f1'
-c.GitHubOAuthenticator.client_id = o_secrets.client_id
-c.GitHubOAuthenticator.client_secret = 'ed063f5085bc8fcd2330fd9b1a4d11a56f257122'
-c.GitHubOAuthenticator.client_secret = o_secrets.client_secret
+c.GitHubOAuthenticator.client_id = os.environ.get('CLIENT_ID')
+c.GitHubOAuthenticator.client_secret = os.environ.get('CLIENT_SECRET')
+
 
 ## Docker spawner
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'

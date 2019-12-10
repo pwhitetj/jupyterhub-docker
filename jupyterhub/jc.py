@@ -17,14 +17,28 @@ c.Spawner.default_url = '/lab'
 
 ## Authenticator
 ## Configure authentication (delagated to GitLab)
-from oauthenticator.github import GitHubOAuthenticator
+#from oauthenticator.github import GitHubOAuthenticator
+from oauthenticator.generic import GenericOAuthenticator
 
-c.JupyterHub.authenticator_class = GitHubOAuthenticator
-c.Authenticator.admin_users = { 'pwhitetj' }
-c.GitHubOAuthenticator.oauth_callback_url = 'https://'+os.environ.get('HOST')+'/hub/oauth_callback'
-c.GitHubOAuthenticator.client_id = os.environ.get('CLIENT_ID')
-c.GitHubOAuthenticator.client_secret = os.environ.get('CLIENT_SECRET')
+#c.JupyterHub.authenticator_class = GitHubOAuthenticator
+#c.Authenticator.admin_users = { 'pwhitetj' }
+#c.GitHubOAuthenticator.oauth_callback_url = 'https://'+os.environ.get('HOST')+'/hub/oauth_callback'
+#c.GitHubOAuthenticator.client_id = os.environ.get('CLIENT_ID')
+#c.GitHubOAuthenticator.client_secret = os.environ.get('CLIENT_SECRET')
 
+c.JupyterHub.authenticator_class = GenericOAuthenticator
+c.GenericOAuthenticator.userdata_url="https://ion.tjhsst.edu/api/profile"
+c.GenericOAuthenticator.token_url="https://ion.tjhsst.edu/oauth/token/"
+c.GenericOAuthenticator.extra_params=dict(
+	client_id=os.environ.get('CLIENT_ID'),
+	client_secret=os.environ.get('CLIENT_SECRET'))
+c.GenericOAuthenticator.oauth_callback_url = 'https://'+os.environ.get('HOST')+'/hub/oauth_callback'
+c.GenericOAuthenticator.username_key="ion_username"
+#c.GenericOAuthenticator.userdata_params=
+c.GenericOAuthenticator.client_id = os.environ.get('CLIENT_ID')
+c.GenericOAuthenticator.client_secret = os.environ.get('CLIENT_SECRET')
+c.GenericOAuthenticator.basic_auth = False
+c.GenericOAuthenticator.tls_verify = True
 
 ## Docker spawner
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'

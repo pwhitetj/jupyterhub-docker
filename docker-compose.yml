@@ -9,12 +9,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - jupyterhub_data:/srv/jupyterhub
     environment:
-      - DOCKER_JUPYTER_CONTAINER=pewhitetj/jupyterlab_img
+      - DOCKER_JUPYTER_CONTAINER=pewhitetj/jupyterlab_small_img
       - DOCKER_NETWORK_NAME=${COMPOSE_PROJECT_NAME}_default
       - HUB_IP=jupyterhub
       - HOST=${HOST}
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
+      - OAUTH_TOKEN_URL=${OAUTH2_TOKEN_URL}
+      - OAUTH2_AUTHORIZE_URL=${OAUTH2_AUTHORIZE_URL}
     labels:
       - traefik.enable=true
       - traefik.frontend.rule=Host:${HOST}
@@ -23,7 +25,7 @@ services:
 
   jupyterlab:
     build: jupyterlab
-    image: pewhitetj/jupyterlab_img
+    image: pewhitetj/jupyterlab_small_img
     container_name: jupyterlab-throaway
     network_mode: none
     command: echo
