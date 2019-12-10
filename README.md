@@ -13,7 +13,8 @@ This is a fork of the repository described below. So far the changes have been
 
 ### To deploy on campus
 
-- I think you just need to edit the HOST in .env then
+- I think you just need to edit the HOST in .env and (for now) the oAuth client_id and client_secret
+since each machine has its own oauth callback (which will be removed when this is swarm based)
 ```{shell}
 $ docker-compose build
 $ docker-compose up -d
