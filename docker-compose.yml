@@ -5,12 +5,15 @@ services:
     build: jupyterhub
     image: pewhitetj/jupyterhub_img
     container_name: jupyterhub
+    hostname: jupyterhub
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - jupyterhub_data:/srv/jupyterhub
+    networks:
+      - jupyterhub-net
     environment:
       - DOCKER_JUPYTER_CONTAINER=pewhitetj/jupyterlab_small_img
-      - DOCKER_NETWORK_NAME=${COMPOSE_PROJECT_NAME}_default
+      - DOCKER_NETWORK_NAME=swarm_jupyterhub-net
       - HUB_IP=jupyterhub
       - HOST=${HOST}
       - CLIENT_ID=${CLIENT_ID}
@@ -22,6 +25,11 @@ services:
       - traefik.frontend.rule=Host:${HOST}
       - traefik.backend=jupyterhub
     restart: on-failure
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
 
   jupyterlab:
     build: jupyterlab
@@ -42,6 +50,13 @@ services:
       - /etc/certs:/etc/certs
       - /var/run/docker.sock:/var/run/docker.sock
     restart: on-failure
-
+    networks:
+      - jupyterhub-net
+      
 volumes:
   jupyterhub_data:
+
+networks:
+  jupyterhub-net:
+    driver: overlay
+

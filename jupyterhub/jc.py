@@ -31,7 +31,8 @@ c.GenericOAuthenticator.userdata_url="https://ion.tjhsst.edu/api/profile"
 c.GenericOAuthenticator.token_url="https://ion.tjhsst.edu/oauth/token/"
 c.GenericOAuthenticator.extra_params=dict(
 	client_id=os.environ.get('CLIENT_ID'),
-	client_secret=os.environ.get('CLIENT_SECRET'))
+	client_secret=os.environ.get('CLIENT_SECRET'),
+        scope="read")
 c.GenericOAuthenticator.oauth_callback_url = 'https://'+os.environ.get('HOST')+'/hub/oauth_callback'
 c.GenericOAuthenticator.username_key="ion_username"
 #c.GenericOAuthenticator.userdata_params=
@@ -41,11 +42,26 @@ c.GenericOAuthenticator.basic_auth = False
 c.GenericOAuthenticator.tls_verify = True
 
 ## Docker spawner
-c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
-c.DockerSpawner.image = os.environ['DOCKER_JUPYTER_CONTAINER']
-c.DockerSpawner.network_name = os.environ['DOCKER_NETWORK_NAME']
+#c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
+#c.DockerSpawner.image = os.environ['DOCKER_JUPYTER_CONTAINER']
+#c.DockerSpawner.network_name = os.environ['DOCKER_NETWORK_NAME']
 # See https://github.com/jupyterhub/dockerspawner/blob/master/examples/oauth/jupyterhub_config.py
-c.JupyterHub.hub_ip = os.environ['HUB_IP']
+#c.JupyterHub.hub_ip = os.environ['HUB_IP']
+
+
+c.JupyterHub.spawner_class = 'dockerspawner.SwarmSpawner'
+# The Hub should listen on all interfaces,
+# so user servers can connect
+c.JupyterHub.hub_ip = '0.0.0.0'
+# this is the name of the 'service' in docker-compose.yml
+c.JupyterHub.hub_connect_ip = 'jupyterhub'
+# this is the network name for jupyterhub in docker-compose.yml
+# with a leading 'swarm_' that docker-compose adds
+c.SwarmSpawner.network_name = os.environ['DOCKER_NETWORK_NAME']
+c.SwarmSpawner.extra_host_config = {'network_mode': c.SwarmSpawner.network_name}
+
+# start jupyterlab
+c.Spawner.cmd = ["jupyter", "labhub"]
 
 # user data persistence
 # see https://github.com/jupyterhub/dockerspawner#data-persistence-and-dockerspawner
